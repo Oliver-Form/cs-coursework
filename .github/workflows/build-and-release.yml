@@ -1,0 +1,59 @@
+name: Build LaTeX and release PDF
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX (latexmk)
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: main.tex
+          compiler: latexmk
+
+      - name: Prepare PDF name
+        id: prep
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d-%H%M%S")
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          SAFE_REPO=${GITHUB_REPOSITORY//\//-}
+          OUT_NAME="$SAFE_REPO-$BRANCH_NAME-$TIMESTAMP.pdf"
+          if [ -f ./main.pdf ]; then
+            mv ./main.pdf "$OUT_NAME"
+          else
+            echo "main.pdf not found after build" >&2
+            exit 1
+          fi
+          echo "pdf_name=$OUT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: pdf-${{ github.sha }}
+          release_name: PDF - ${{ github.ref_name }} - ${{ github.sha }}
+          body: "Auto-generated PDF from commit ${{ github.sha }} on ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+
+      - name: Upload PDF to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.prep.outputs.pdf_name }}
+          asset_name: ${{ steps.prep.outputs.pdf_name }}
+          asset_content_type: application/pdf
