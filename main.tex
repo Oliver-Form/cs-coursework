@@ -1,0 +1,61 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\titleformat{\chapter}{\normalfont\LARGE\bfseries}{\thechapter.}{1em}{}
+
+\begin{document}
+\pagenumbering{gobble}
+
+%======================
+%   TITLE PAGE
+%======================
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\Huge \textbf{ForcePlay}}\\[0.5cm]
+    {\Large A 2D Particle Physics Sandbox Built with Next.js and React}\\[1.2cm]
+
+    \rule{\textwidth}{0.4pt}\\[0.4cm]
+    {\large \textbf{OCR A-Level Computer Science Coursework}}\\
+    {\large Programming Project (H446/03 or H446/04)}\\
+    \rule{\textwidth}{0.4pt}\\[1.5cm]
+
+    \begin{flushleft}
+    \large
+    \textbf{Candidate Name:} Oliver\\[0.2cm]
+    \textbf{Centre Number:} \underline{\hspace{4cm}}\\[0.2cm]
+    \textbf{Candidate Number:} \underline{\hspace{4cm}}\\[0.2cm]
+    \textbf{Academic Year:} 2025–2026\\
+    \end{flushleft}
+
+    \vfill
+    {\large \today}
+\end{titlepage}
+
+\newpage
+\pagenumbering{roman}
+
+%======================
+%   TABLE OF CONTENTS
+%======================
+
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+%====================================
+%   START OF MAIN REPORT
+%====================================
+
+% Insert chapters here
