@@ -1,0 +1,48 @@
+# latex build files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.brf
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.idx
+*.ilg
+*.ind
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex.gz(busy)
+
+# temporary files
+*.tmp
+*.bak
+*.sav
+*.swp
+*.swx
+
+# output files
+*.pdf
+*.dvi
+*.xdv
+*.ps
+
+# latexmk
+latexmkrc
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Linux
+*~
