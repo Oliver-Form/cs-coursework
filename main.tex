@@ -33,7 +33,7 @@
 
     \begin{flushleft}
     \large
-    \textbf{Candidate Name:} Oliver\\[0.2cm]
+    \textbf{Candidate Name:} Oliver Form\\[0.2cm]
     \textbf{Centre Number:} \underline{\hspace{4cm}}\\[0.2cm]
     \textbf{Candidate Number:} \underline{\hspace{4cm}}\\[0.2cm]
     \textbf{Academic Year:} 2025–2026\\
@@ -58,6 +58,133 @@
 %   START OF MAIN REPORT
 %====================================
 
-% Insert chapters here
+\chapter{Analysis}
+
+\section{Problem Context and Computational Justification}
+
+\subsection*{Problem Context}
+\begin{itemize}
+    \item ForcePlay is a 2D sandbox where users create and test point-mass particles.
+    \item The app demonstrates mechanics ideas: forces, momentum, acceleration and collisions.
+\end{itemize}
+
+\subsection*{Nature of the Problem}
+\begin{itemize}
+    \item Particle motion is defined by position, velocity, acceleration and forces.
+    \item Given the state at time $t$, physics laws determine the state at $t+\Delta t$.
+    \item The simulator must handle many particles, each with its own state and interactions.
+\end{itemize}
+
+\subsection*{Computational Solvability}
+\begin{itemize}
+    \item Newton's laws and kinematic equations map directly to arithmetic operations.
+    \item Time-stepped integration (e.g. semi-implicit Euler) updates particle states.
+    \item Collision detection and response use geometric checks and vector math, which are computable.
+\end{itemize}
+
+\subsection*{Need for Computation}
+\begin{itemize}
+    \item Real-time updates (milliseconds) are impractical to do manually.
+    \item The number of pairwise interactions grows with particle count, so code is needed to scale.
+    \item Changing forces, boundaries or particle properties requires continuous recalculation.
+\end{itemize}
+
+\subsection*{Why a Programmatic Simulation}
+\begin{itemize}
+    \item Software gives consistent, reproducible results from clear rules.
+    \item The UI can update visuals instantly in response to user input.
+    \item Controls like pause, step and reset need an accurate internal state, which software provides.
+    \item Real-time rendering makes experiments easy to observe and repeat.
+\end{itemize}
+
+\section{Stakeholders}
+
+\subsection*{A-level Students}
+\begin{itemize}
+    \item Main users who learn mechanics by experimenting.
+    \item Need adjustable properties, collision setups, and pause/step controls.
+\end{itemize}
+
+\subsection*{Teachers}
+\begin{itemize}
+    \item Use the app for demonstrations and lessons.
+    \item Need clear visuals, presets and easy classroom use.
+\end{itemize}
+
+\subsection*{Hobbyists}
+\begin{itemize}
+    \item Interested in exploring physics informally.
+    \item Prefer simple controls and the ability to save/load scenes.
+\end{itemize}
+
+\subsection*{Developer / Tester}
+\begin{itemize}
+    \item Implements and tests the project.
+    \item Needs reproducible simulations and easy debugging.
+\end{itemize}
+
+\section{Research Into Existing Solutions}
+
+Checked tools like Algodoo, PhET, GeoGebra and Box2D demos. Key takeaways:
+\begin{itemize}
+    \item Real-time feedback is important.
+    \item Simple particle visuals help learning.
+    \item Allowing users to change mass, velocity and elasticity encourages experiments.
+    \item Keep the interface focused and not overloaded with features.
+\end{itemize}
+
+ForcePlay aims to be component-based and minimal so it fits A-level topics and classroom use.
+
+\section{Requirements Specification}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item Spawn Particles: Users can create particles with position, mass and velocity.
+    \item Apply Forces: Gravity and user-applied forces affect particles.
+    \item Collision Handling: Detect and respond to collisions using impulse-based methods.
+    \item Adjustable Environment: Users can change gravity, friction and boundaries.
+    \item UI Controls: Pause, reset, step and speed controls are provided.
+    \item Save/Load: Optional scene saving/loading for reusing setups.
+    \item Performance: Keep the simulation smooth with multiple particles.
+\end{itemize}
+
+\subsubsection{Non-Functional Requirements}
+\begin{itemize}
+    \item Usability: Simple, clear interface with immediate feedback.
+    \item Efficiency: Target 60 FPS with a reasonable number of particles.
+    \item Reliability: Handle normal use without crashes.
+    \item Browser Compatibility: Works in modern browsers (Chrome, Firefox).
+    \item Expandability: Design allows adding features later (e.g. new forces).
+\end{itemize}
+
+\section{Hardware and Software Requirements}
+
+\begin{itemize}
+    \item Modern browser that supports React and canvas/WebGL.
+    \item JavaScript runtime for the simulation logic.
+    \item Next.js development stack for building the app.
+    \item Decent CPU for real-time updates with many particles.
+\end{itemize}
+
+\subsection{Measurable Success Criteria}
+
+\begin{itemize}
+    \item Simulation runs at 60 updates per second with up to 200 particles.
+    \item Collisions are correct in the majority of tested cases (aim ≥95\%).
+    \item UI responds within ~100 ms to user actions.
+    \item Users can run at least three different scenarios without errors.
+    \item Functional requirements from earlier are met and demonstrable.
+\end{itemize}
+
+\subsection{Limitations}
+\begin{itemize}
+    \item Point masses only (no rigid bodies or shapes).
+    \item Simplified collision model (instant impulses, no deformation).
+    \item No rotation — only translational motion is simulated.
+    \item Numerical integration has truncation error; small timesteps may be needed.
+    \item JavaScript performance limits maximum particle counts.
+    \item 2D only — no 3D simulations.
+    \item React + Canvas has overhead; very large scenes may need WebGL or worker-based physics.
+\end{itemize}
 
 \end{document}
